@@ -4,3 +4,4 @@ c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp
 c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\App.g.cs
 c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\IMAPclientApp_MarkupCompile.cache
 c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\IMAPclientApp_MarkupCompile.lref
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\bin\Debug\IMAPclientApp.exe.config
