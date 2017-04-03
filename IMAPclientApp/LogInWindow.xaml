@@ -11,7 +11,7 @@
         <StackPanel Orientation="Vertical">
             <TextBlock Text="Log In Details" FontWeight="Bold"/>
             <TextBlock Text="Email:" Margin="0 10 0 0"/>
-            <TextBox Name="emailTextBox" Padding="2" Foreground="Gray" Text="example@gmail.com" Background="Linen"/>
+            <TextBox Name="emailTextBox" Padding="2" Background="Linen"/>
             <TextBlock Text="Password:" Margin="0 10 0 0"/>
             <PasswordBox Name="passwordBox" Padding="2" PasswordChar="*" Background="Linen"/>
             <Button Name="loginButton" Click="loginButton_Click" Content="Log In" Margin="0 20" Width="120"/>
