@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A3730971-C91A-4DC8-8DF3-9B1E0716E5F7}</ProjectGuid>
+    <ProjectGuid>{44D3D922-0F46-4AEA-A9D6-6E4C503E1DA1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IMAPclientApp</RootNamespace>
@@ -55,7 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Validate.cs" />
+    <Page Include="displayWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LogInWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -64,8 +67,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="displayWindow.xaml.cs">
+      <DependentUpon>displayWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IMAPclient.cs" />
-    <Compile Include="IMAPexception.cs" />
+    <Compile Include="IMAPclientBase.cs" />
     <Compile Include="LogInWindow.xaml.cs">
       <DependentUpon>LogInWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

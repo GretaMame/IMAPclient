@@ -19,7 +19,7 @@ namespace IMAPclientApp
 
         public void LogIn()
         {
-            ReceiveResponse("LOGIN " + email + " " + password + "  \r\n");
+            ReceiveResponse("LOGIN " + email + " " + password + "  " + EOL);
 
             ReceiveResponse("LIST " + "\"\"" + " \"*\"" + "\r\n");
 

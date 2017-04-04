@@ -12,15 +12,33 @@ namespace IMAPclientApp
 {
     class IMAPclientBase
     {
-        private static string EOL = "\r\n";
+        protected static string EOL = " \r\n";
+        protected static string DEFAULT_MAILBOX = "INBOX";
         /// <summary>
         /// IMAP commands
         /// </summary>
-        private static string IMAP_LOGIN_CMD = "Login";
-        private static string IMAP_LOGOUT_CMD = "Logout";
-        
-        private static string IMAP_SELECT = "Select INBOX";
-
+        protected static string IMAP_LOGIN_CMD = "Login";
+        protected static string IMAP_LOGOUT_CMD = "Logout";
+        /// <summary>
+        /// IMAP autheticated+selected state commands
+        /// </summary>
+        protected static string IMAP_SELECT = "Select";
+        protected static string IMAP_DELETE = "Delete";
+        protected static string IMAP_RENAME = "Rename";
+        protected static string IMAP_CREATE = "Create";
+        protected static string IMAP_LIST = "List";
+        protected static string IMAP_STATUS = "Satus";
+        protected static string IMAP_APPEND = "Append";
+        /// <summary>
+        /// IMAP selected state commands
+        /// </summary>
+        protected static string IMAP_CHECK = "Check";
+        protected static string IMAP_CLOSE = "Close";
+        protected static string IMAP_EXPUNGE = "Expunge";
+        protected static string IMAP_SEARCH = "Search";
+        protected static string IMAP_FETCH = "Fetch";
+        protected static string IMAP_STORE = "Store";
+        protected static string IMAP_COPY = "Copy";
         /// <summary>
         /// variables declared for unique command identifier
         /// </summary>
@@ -28,11 +46,11 @@ namespace IMAPclientApp
         private static string imapCommandPrefix = "IMAP";
         private string stringFormat = "000";
 
-        public string imapCommandIdentifier
+        protected string imapCommandIdentifier
         {
             get
             {
-                return imapCommandPrefix + imapCommandValue.ToString(stringFormat);
+                return imapCommandPrefix + imapCommandValue.ToString(stringFormat) + " ";
             }
         }
 
@@ -60,7 +78,7 @@ namespace IMAPclientApp
         /// Connects to server and displays it's response to console
         /// </summary>
         /// <returns>true if connection successful, false if not</returns>
-        public bool Connect()
+        protected bool Connect()
         {
             try
             {
@@ -87,7 +105,6 @@ namespace IMAPclientApp
         public void Disconnect()
         {
             imapCommandValue = 0;
-            ReceiveResponse("LOGOUT\r\n");
             if (ssl != null)
             {
                 ssl.Close();
@@ -99,15 +116,30 @@ namespace IMAPclientApp
                 client.Close();
             }
 
-            
+            if (netwStream != null)
+            {
+                ssl.Dispose();
+            }
+
+            if (readStream != null)
+            {
+                readStream.Dispose();
+            }
         }
 
-        //private bool 
+        protected void SendReceive(string cmd)
+        {
+            imapCommandValue++;
+            string command = imapCommandIdentifier + cmd;
+            //DEBUG
+            Debug.WriteLine("C: " + command);
+
+        }
 
         protected void ReceiveResponse(string cmd)
         {
             imapCommandValue++;
-            string command = imapCommandIdentifier + " " + cmd;
+            string command = imapCommandIdentifier + cmd;
             Debug.WriteLine(command);
             try
             {
