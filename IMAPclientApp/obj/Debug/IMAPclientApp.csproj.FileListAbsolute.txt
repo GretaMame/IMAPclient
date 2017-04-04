@@ -1,7 +1,16 @@
 c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\bin\Debug\IMAPclientApp.exe.config
 c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\IMAPclientApp.csprojResolveAssemblyReference.cache
-c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\MainWindow.g.cs
+c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\LogInWindow.g.cs
 c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\App.g.cs
 c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\IMAPclientApp_MarkupCompile.cache
 c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\IMAPclientApp_MarkupCompile.lref
-C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\bin\Debug\IMAPclientApp.exe.config
+c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\bin\Debug\IMAPclientApp.exe
+c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\bin\Debug\IMAPclientApp.pdb
+c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\LogInWindow.baml
+c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\IMAPclientApp.g.resources
+c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\IMAPclientApp.Properties.Resources.resources
+c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\IMAPclientApp.csproj.GenerateResource.Cache
+c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\IMAPclientApp.exe
+c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\IMAPclientApp.pdb
+c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\displayWindow.g.cs
+c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\displayWindow.baml
