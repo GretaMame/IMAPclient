@@ -29,10 +29,9 @@ namespace IMAPclientApp
         {
             // IMAPclient newSession = new IMAPclient("imap.gmail.com", 993, emailTextBox.Text, passwordBox.Password);
             IMAPclient newSession = new IMAPclient("imap.gmail.com", 993, "gretuka27@gmail.com", "pasgausiujeiatspesi");
-            if (newSession.Connect())
-            {
+
                 newSession.LogIn();
-            }
+            
             newSession.LogOut();
             OpenDisplayWindow();
 

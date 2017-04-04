@@ -14,3 +14,19 @@ c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp
 c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\IMAPclientApp.pdb
 c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\displayWindow.g.cs
 c:\users\greta\documents\visual studio 2015\Projects\IMAPclientApp\IMAPclientApp\obj\Debug\displayWindow.baml
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\bin\Debug\IMAPclientApp.exe.config
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\IMAPclientApp.exe
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\IMAPclientApp.pdb
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\IMAPclientApp.csprojResolveAssemblyReference.cache
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\displayWindow.g.cs
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\LogInWindow.g.cs
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\App.g.cs
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\IMAPclientApp_MarkupCompile.cache
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\IMAPclientApp_MarkupCompile.lref
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\bin\Debug\IMAPclientApp.exe
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\bin\Debug\IMAPclientApp.pdb
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\displayWindow.baml
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\LogInWindow.baml
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\IMAPclientApp.g.resources
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\IMAPclientApp.Properties.Resources.resources
+C:\Users\Greta\Source\Repos\IMAPclient\IMAPclientApp\obj\Debug\IMAPclientApp.csproj.GenerateResource.Cache
