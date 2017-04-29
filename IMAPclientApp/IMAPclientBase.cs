@@ -14,14 +14,10 @@ namespace IMAPclientApp
     {
         protected static string EOL = " \r\n";
         protected static string DEFAULT_MAILBOX = "INBOX";
-        /// <summary>
-        /// IMAP commands
-        /// </summary>
+        // IMAP commands
         protected static string IMAP_LOGIN_CMD = "Login";
         protected static string IMAP_LOGOUT_CMD = "Logout";
-        /// <summary>
-        /// IMAP autheticated+selected state commands
-        /// </summary>
+        // IMAP autheticated+selected state commands
         protected static string IMAP_SELECT = "Select";
         protected static string IMAP_DELETE = "Delete";
         protected static string IMAP_RENAME = "Rename";
@@ -29,9 +25,7 @@ namespace IMAPclientApp
         protected static string IMAP_LIST = "List";
         protected static string IMAP_STATUS = "Satus";
         protected static string IMAP_APPEND = "Append";
-        /// <summary>
-        /// IMAP selected state commands
-        /// </summary>
+        // IMAP selected state commands
         protected static string IMAP_CHECK = "Check";
         protected static string IMAP_CLOSE = "Close";
         protected static string IMAP_EXPUNGE = "Expunge";
@@ -39,13 +33,10 @@ namespace IMAPclientApp
         protected static string IMAP_FETCH = "Fetch";
         protected static string IMAP_STORE = "Store";
         protected static string IMAP_COPY = "Copy";
-        /// <summary>
-        /// variables declared for unique command identifier
-        /// </summary>
+        // variables declared for unique command identifier
         private int imapCommandValue = 0;
         private static string imapCommandPrefix = "IMAP";
         private string stringFormat = "000";
-
         protected string imapCommandIdentifier
         {
             get
@@ -54,18 +45,18 @@ namespace IMAPclientApp
             }
         }
 
+
+
         Stream netwStream;
         StreamReader readStream;
-
         private string host;
         private int port;
-        private TcpClient client= null;
+        private TcpClient client = null;
         private SslStream ssl = null;
         byte[] buffer;
         byte[] dummy;
         int bytes = -1;
         StringBuilder sb = new StringBuilder();
-        private string email, password;
 
         public IMAPclientBase(string host, int port)
         {
@@ -90,7 +81,7 @@ namespace IMAPclientApp
                 netwStream = ssl;
                 readStream = new StreamReader(netwStream);
                 result = readStream.ReadLine();
-                Debug.WriteLine(result);
+                ServerMessage(result);
                 if (result.StartsWith("* OK")) return true;
                 else return false;
             }
@@ -132,7 +123,36 @@ namespace IMAPclientApp
             imapCommandValue++;
             string command = imapCommandIdentifier + cmd;
             //DEBUG
-            Debug.WriteLine("C: " + command);
+            ClientMessage(command);
+            byte[] cmdBuffer = Encoding.ASCII.GetBytes(command.ToCharArray());
+            try
+            {
+                netwStream.Write(cmdBuffer, 0, cmdBuffer.Length);
+                bool endMessage = false;
+                while (!endMessage)
+                {
+                    string result = readStream.ReadLine();
+                    if(result.StartsWith(imapCommandIdentifier+"OK") || result.StartsWith(imapCommandIdentifier+"BAD") || result.StartsWith(imapCommandIdentifier + "NO"))
+                    {
+                        ServerMessage(result);
+                        endMessage = true;
+                    }
+                    //else if (result.StartsWith("BAD") || result.StartsWith("NO"))
+                    //{
+                    //    ServerMessage(result);
+                    //    endMessage = true;
+                    //}
+                    else
+                    {
+                        ServerMessage(result);
+                        endMessage = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
 
         }
 
@@ -140,21 +160,17 @@ namespace IMAPclientApp
         {
             imapCommandValue++;
             string command = imapCommandIdentifier + cmd;
-            Debug.WriteLine(command);
+            ClientMessage(command);
             try
             {
-
-                if (command != "")
+                if (client.Connected)
                 {
-                    if (client.Connected)
-                    {
-                        dummy = Encoding.ASCII.GetBytes(command);
-                        ssl.Write(dummy, 0, dummy.Length);
-                    }
-                    else
-                    {
-                        throw new ApplicationException("TCP CONNECTION DISCONNECTED");
-                    }
+                    dummy = Encoding.ASCII.GetBytes(command);
+                    ssl.Write(dummy, 0, dummy.Length);
+                }
+                else
+                {
+                    throw new ApplicationException("TCP CONNECTION DISCONNECTED");
                 }
                 ssl.Flush();
 
@@ -163,8 +179,8 @@ namespace IMAPclientApp
                 bytes = ssl.Read(buffer, 0, 2048);
                 sb.Append(Encoding.UTF7.GetString(buffer));
 
-
-                Debug.WriteLine(sb.ToString());
+                ServerMessage(sb.ToString());
+               // Debug.WriteLine(sb.ToString());
                 sb = new StringBuilder();
 
             }
@@ -172,7 +188,17 @@ namespace IMAPclientApp
             {
                 throw new ApplicationException(ex.Message);
             }
+
         }
-    
+
+        private void ServerMessage(string response)
+        {
+            Debug.WriteLine("S: " + response);
+        }
+
+        private void ClientMessage(string command)
+        {
+            Debug.WriteLine("C: " + command);
+        }
     }
 }

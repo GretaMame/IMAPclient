@@ -20,9 +20,9 @@ namespace IMAPclientApp
         public void LogIn()
         {
             Connect();
-            ReceiveResponse("LOGIN " + email + " " + password + "  " + EOL);
+            SendReceive(IMAP_LOGIN_CMD +" "+ email + " " + password + EOL);
 
-            ReceiveResponse("LIST " + "\"\"" + " \"*\"" + "\r\n");
+            SendReceive("LIST " + "\"\"" + " \"*\"" + EOL);
 
             ReceiveResponse("SELECT INBOX\r\n");
 
@@ -38,6 +38,7 @@ namespace IMAPclientApp
 
         public void LogOut()
         {
+            SendReceive(IMAP_LOGOUT_CMD+EOL);
             Disconnect();
         }
     }

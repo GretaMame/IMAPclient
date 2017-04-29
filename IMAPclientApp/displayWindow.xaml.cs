@@ -34,7 +34,7 @@ namespace IMAPclientApp
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            usernameTextBlock.Text = username + "INBOX";
+            usernameTextBlock.Text = username + " INBOX";
         }
     }
 }
