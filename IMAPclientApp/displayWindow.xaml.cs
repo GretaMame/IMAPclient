@@ -86,6 +86,11 @@ namespace IMAPclientApp
             return pure;
         }
 
+    private void signOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            imap.LogOut();
+            this.Close();
+        }
     }
 
     public class EmailInfo

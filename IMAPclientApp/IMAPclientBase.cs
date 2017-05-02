@@ -110,7 +110,7 @@ namespace IMAPclientApp
             }
         }
 
-        protected void SendReceive(string cmd)
+        protected void SendReceive(string cmd, ref ArrayList resultArray)
         {
             imapCommandValue++;
             string command = imapCommandIdentifier + cmd;
@@ -124,7 +124,8 @@ namespace IMAPclientApp
                 while (!endMessage)
                 {
                     string result = readStream.ReadLine();
-                    if(result.StartsWith(imapCommandIdentifier+"OK"))
+                    resultArray.Add(result);
+                    if (result.StartsWith(imapCommandIdentifier+"OK"))
                     {
                         ServerMessage(result);
                         endMessage = true;
@@ -148,8 +149,8 @@ namespace IMAPclientApp
             }
 
         }
-
-        protected void SendReceive(string cmd, ref ArrayList resultArray)
+        
+        protected bool SendReceive(string cmd)
         {
             imapCommandValue++;
             string command = imapCommandIdentifier + cmd;
@@ -160,20 +161,23 @@ namespace IMAPclientApp
             {
                 netwStream.Write(cmdBuffer, 0, cmdBuffer.Length);
                 bool endMessage = false;
+                bool success = true;
                 while (!endMessage)
                 {
                     string result = readStream.ReadLine();
-                    resultArray.Add(result);
                     if (result.StartsWith(imapCommandIdentifier + "OK"))
                     {
                         ServerMessage(result);
                         endMessage = true;
+                        success = true;
+                        
                     }
                     //jei kazkas blogai, reikia reaguot
                     else if (result.StartsWith("bad") || result.StartsWith("no"))
                     {
                         ServerMessage(result);
                         endMessage = true;
+                        success = false;
                     }
                     else
                     {
@@ -181,10 +185,12 @@ namespace IMAPclientApp
                         endMessage = false;
                     }
                 }
+                return success;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
+                return false;
             }
 
         }

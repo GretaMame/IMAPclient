@@ -27,14 +27,19 @@ namespace IMAPclientApp
         {
             if (Connect())
             {
-                SendReceive(IMAP_LOGIN_CMD + " " + email + " " + password + EOL);
-
-                SendReceive("LIST " + "\"\"" + " \"*\"" + EOL);
-                SelectMailbox(DEFAULT_MAILBOX);
-
-                for(int i=0;i<10;i++)
+                if (SendReceive(IMAP_LOGIN_CMD + " " + email + " " + password + EOL))
                 {
-                    FetchMessage();
+                    SendReceive("LIST " + "\"\"" + " \"*\"" + EOL);
+                    SelectMailbox(DEFAULT_MAILBOX);
+
+                    //for (int i = 0; i < 10; i++)
+                    //{
+                    //    FetchMessage();
+                    //}
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("There has been a mistake while logging in, please try again");
                 }
                 //int number = 4196;
 

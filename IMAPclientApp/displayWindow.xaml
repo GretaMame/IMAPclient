@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:IMAPclientApp"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="displayWindow" Height="500" Width="550"
+        Title="displayWindow" Height="550" Width="700"
         WindowStartupLocation="CenterScreen">
 
     <Border Margin="7">
@@ -15,11 +15,17 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <TextBlock Grid.Row="0" Text="gmail" Name="usernameTextBlock" FontWeight="Bold"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="550"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="gmail" Name="usernameTextBlock" FontWeight="Bold"/>
+                <Button Grid.Column="1" Name="signOutBtn" Content="Sign Out" Click="signOutBtn_Click"/>
+            </Grid>
+
             <Grid Grid.Row="1" Margin="0 3 0 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <!--MAILBOXES treeview-->
@@ -27,13 +33,13 @@
 
                 </TreeView>-->
                 <!--mailbox data column-->
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="0">
                     <ListView Margin="2" Name="emails">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Date" Width="80" DisplayMemberBinding="{Binding Date}" />
-                                <GridViewColumn Header="Sender" Width="100" DisplayMemberBinding="{Binding Sender}" />
-                                <GridViewColumn Header="Subject" Width="200" DisplayMemberBinding="{Binding Subject}" />
+                                <GridViewColumn Header="Date" Width="120" DisplayMemberBinding="{Binding Date}" />
+                                <GridViewColumn Header="Sender" Width="220" DisplayMemberBinding="{Binding Sender}" />
+                                <GridViewColumn Header="Subject" Width="330" DisplayMemberBinding="{Binding Subject}" />
                             </GridView>
                         </ListView.View>
                     </ListView>

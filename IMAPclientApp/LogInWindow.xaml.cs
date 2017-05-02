@@ -24,27 +24,29 @@ namespace IMAPclientApp
         public MainWindow()
         {
             InitializeComponent();
+            emailTextBox.Text = "gretuka27@gmail.com";
+            passwordBox.Password = "pasgausiujeiatspesi";
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
-            // IMAPclient newSession = new IMAPclient("imap.gmail.com", 993, emailTextBox.Text, passwordBox.Password);
-            newSession = new IMAPclient("imap.gmail.com", 993, "gretuka27@gmail.com", "pasgausiujeiatspesi");
+
+            newSession = new IMAPclient("imap.gmail.com", 993, emailTextBox.Text, passwordBox.Password);
+            //newSession = new IMAPclient("imap.gmail.com", 993, "gretuka27@gmail.com", "pasgausiujeiatspesi");
 
             newSession.LogIn();
             
             OpenDisplayWindow();
-            //iki cia nebeateina
-           // newSession.LogOut();
 
         }
 
         private void OpenDisplayWindow()
         {
-            //displayWindow window = new displayWindow(emailTextBox.Text);
-            displayWindow window = new displayWindow("gretuka27@gmail.com", newSession);
+            displayWindow window = new displayWindow(emailTextBox.Text, newSession);
+            //displayWindow window = new displayWindow("gretuka27@gmail.com", newSession);
             window.Show();
-            //this.Close();
+            emailTextBox.Text = "";
+            passwordBox.Password = "";
         }
     }
 }
