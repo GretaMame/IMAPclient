@@ -30,10 +30,11 @@ namespace IMAPclientApp
             // IMAPclient newSession = new IMAPclient("imap.gmail.com", 993, emailTextBox.Text, passwordBox.Password);
             IMAPclient newSession = new IMAPclient("imap.gmail.com", 993, "gretuka27@gmail.com", "pasgausiujeiatspesi");
 
-                newSession.LogIn();
+            newSession.LogIn();
             
-            newSession.LogOut();
             OpenDisplayWindow();
+            //iki cia nebeateina
+           // newSession.LogOut();
 
         }
 
@@ -42,7 +43,7 @@ namespace IMAPclientApp
             //displayWindow window = new displayWindow(emailTextBox.Text);
             displayWindow window = new displayWindow("gretuka27@gmail.com");
             window.Show();
-            this.Close();
+            //this.Close();
         }
     }
 }

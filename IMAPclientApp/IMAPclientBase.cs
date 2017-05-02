@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,13 +12,13 @@ namespace IMAPclientApp
 {
     class IMAPclientBase
     {
-        protected static string EOL = " \r\n";
+        protected static string EOL = "\r\n";
         protected static string DEFAULT_MAILBOX = "INBOX";
         // IMAP commands
         protected static string IMAP_LOGIN_CMD = "Login";
         protected static string IMAP_LOGOUT_CMD = "Logout";
         // IMAP autheticated+selected state commands
-        protected static string IMAP_SELECT = "Select";
+        protected static string IMAP_SELECT = "Select ";
         protected static string IMAP_DELETE = "Delete";
         protected static string IMAP_RENAME = "Rename";
         protected static string IMAP_CREATE = "Create";
@@ -53,9 +53,9 @@ namespace IMAPclientApp
         private int port;
         private TcpClient client = null;
         private SslStream ssl = null;
-        byte[] buffer;
-        byte[] dummy;
-        int bytes = -1;
+        //byte[] buffer;
+        //byte[] dummy;
+        //int bytes = -1;
         StringBuilder sb = new StringBuilder();
 
         public IMAPclientBase(string host, int port)
@@ -64,11 +64,8 @@ namespace IMAPclientApp
             this.port = port;
         }
 
-
-        /// <summary>
-        /// Connects to server and displays it's response to console
-        /// </summary>
-        /// <returns>true if connection successful, false if not</returns>
+        // Connects to server and displays it's response to console
+        // <returns>true if connection successful, false if not</returns>
         protected bool Connect()
         {
             try
@@ -132,20 +129,21 @@ namespace IMAPclientApp
                 while (!endMessage)
                 {
                     string result = readStream.ReadLine();
-                    if(result.StartsWith(imapCommandIdentifier+"OK") || result.StartsWith(imapCommandIdentifier+"BAD") || result.StartsWith(imapCommandIdentifier + "NO"))
+                    if(result.StartsWith(imapCommandIdentifier+"OK"))
                     {
                         ServerMessage(result);
                         endMessage = true;
                     }
-                    //else if (result.StartsWith("BAD") || result.StartsWith("NO"))
-                    //{
-                    //    ServerMessage(result);
-                    //    endMessage = true;
-                    //}
-                    else
+                    //jei kazkas blogai, reikia reaguot
+                    else if (result.StartsWith("bad") || result.StartsWith("no"))
                     {
                         ServerMessage(result);
                         endMessage = true;
+                    }
+                    else
+                    {
+                        ServerMessage(result);
+                        endMessage = false;
                     }
                 }
             }
@@ -156,37 +154,42 @@ namespace IMAPclientApp
 
         }
 
-        protected void ReceiveResponse(string cmd)
+        protected void SendReceive(string cmd, ref ArrayList resultArray)
         {
             imapCommandValue++;
             string command = imapCommandIdentifier + cmd;
+            //DEBUG
             ClientMessage(command);
+            byte[] cmdBuffer = Encoding.ASCII.GetBytes(command.ToCharArray());
             try
             {
-                if (client.Connected)
+                netwStream.Write(cmdBuffer, 0, cmdBuffer.Length);
+                bool endMessage = false;
+                while (!endMessage)
                 {
-                    dummy = Encoding.ASCII.GetBytes(command);
-                    ssl.Write(dummy, 0, dummy.Length);
+                    string result = readStream.ReadLine();
+                    resultArray.Add(result);
+                    if (result.StartsWith(imapCommandIdentifier + "OK"))
+                    {
+                        ServerMessage(result);
+                        endMessage = true;
+                    }
+                    //jei kazkas blogai, reikia reaguot
+                    else if (result.StartsWith("bad") || result.StartsWith("no"))
+                    {
+                        ServerMessage(result);
+                        endMessage = true;
+                    }
+                    else
+                    {
+                        ServerMessage(result);
+                        endMessage = false;
+                    }
                 }
-                else
-                {
-                    throw new ApplicationException("TCP CONNECTION DISCONNECTED");
-                }
-                ssl.Flush();
-
-
-                buffer = new byte[2048];
-                bytes = ssl.Read(buffer, 0, 2048);
-                sb.Append(Encoding.UTF7.GetString(buffer));
-
-                ServerMessage(sb.ToString());
-               // Debug.WriteLine(sb.ToString());
-                sb = new StringBuilder();
-
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                throw new ApplicationException(ex.Message);
+                Debug.WriteLine(e.Message);
             }
 
         }
