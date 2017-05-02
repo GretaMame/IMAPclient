@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace IMAPclientApp
 {
-    class IMAPclientBase
+    public class IMAPclientBase
     {
         protected static string EOL = "\r\n";
         protected static string DEFAULT_MAILBOX = "INBOX";
@@ -30,7 +30,7 @@ namespace IMAPclientApp
         protected static string IMAP_CLOSE = "Close";
         protected static string IMAP_EXPUNGE = "Expunge";
         protected static string IMAP_SEARCH = "Search";
-        protected static string IMAP_FETCH = "Fetch";
+        protected static string IMAP_FETCH = "Fetch ";
         protected static string IMAP_STORE = "Store";
         protected static string IMAP_COPY = "Copy";
         // variables declared for unique command identifier
@@ -45,17 +45,12 @@ namespace IMAPclientApp
             }
         }
 
-
-
         Stream netwStream;
         StreamReader readStream;
         private string host;
         private int port;
         private TcpClient client = null;
         private SslStream ssl = null;
-        //byte[] buffer;
-        //byte[] dummy;
-        //int bytes = -1;
         StringBuilder sb = new StringBuilder();
 
         public IMAPclientBase(string host, int port)
@@ -65,7 +60,7 @@ namespace IMAPclientApp
         }
 
         // Connects to server and displays it's response to console
-        // <returns>true if connection successful, false if not</returns>
+        // returns true if connection successful, false if not
         protected bool Connect()
         {
             try

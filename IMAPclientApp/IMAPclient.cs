@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace IMAPclientApp
 {
-    class IMAPclient:IMAPclientBase
+    public class IMAPclient:IMAPclientBase
     {
-        private static int DEFAULT_MESSAGES_AMOUNT = 20;
         private string email;
         private string password;
 
@@ -33,12 +32,14 @@ namespace IMAPclientApp
                 SendReceive("LIST " + "\"\"" + " \"*\"" + EOL);
                 SelectMailbox(DEFAULT_MAILBOX);
 
+                for(int i=0;i<10;i++)
+                {
+                    FetchMessage();
+                }
+                //int number = 4196;
 
-
-                int number = 4196;
-
-                SendReceive("FETCH " + number + " body[header]\r\n");
-                SendReceive("FETCH " + number + " body[text]\r\n");
+                //SendReceive("FETCH " + number + " body[header]\r\n");
+                //SendReceive("FETCH " + number + " body[text]\r\n");
             } else
             {
                 System.Windows.MessageBox.Show("Unable to connect to server");
@@ -58,10 +59,29 @@ namespace IMAPclientApp
             getMessageCount(result);
         }
 
-        public void fetchMessages(int amount)
+        public ArrayList FetchMessage()
         {
-            ArrayList messages = new ArrayList();
+            ArrayList messageInfo = new ArrayList();
+            
+            {
+                Debug.WriteLine("{0} message", currentMessageCount);
+                messageInfo = getMessageBasicInfo(currentMessageCount--);
 
+               // reikia isspausdint WPF'e
+                foreach (string s in messageInfo)
+                {
+                    Debug.WriteLine("INFO: " + s);
+                }
+                return messageInfo;
+
+            }
+        }
+
+        private ArrayList getMessageBasicInfo(int uid)
+        {
+            ArrayList messageInfo = new ArrayList();
+            SendReceive(IMAP_FETCH + uid + " (FLAGS BODY[HEADER.FIELDS (SUBJECT DATE FROM)])"+EOL, ref messageInfo);
+            return messageInfo;    
         }
 
         private void getMessageCount(ArrayList res)
@@ -72,7 +92,6 @@ namespace IMAPclientApp
             {
                if(rg.IsMatch(s))
                 {
-                    //cia dar reiktu megint parsint, tikrinimo reiktu
                     messageCount = Int32.Parse(Regex.Replace(s, "[^0-9]+", string.Empty));
                     currentMessageCount = messageCount;
                     Debug.WriteLine("Amount of messages: {0}", messageCount);

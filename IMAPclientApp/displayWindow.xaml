@@ -27,9 +27,17 @@
 
                 </TreeView>-->
                 <!--mailbox data column-->
-                <StackPanel Grid.Column="1">
-
-                </StackPanel>
+                <Grid Grid.Column="1">
+                    <ListView Margin="2" Name="emails">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Date" Width="80" DisplayMemberBinding="{Binding Date}" />
+                                <GridViewColumn Header="Sender" Width="100" DisplayMemberBinding="{Binding Sender}" />
+                                <GridViewColumn Header="Subject" Width="200" DisplayMemberBinding="{Binding Subject}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </Grid>
         </Grid>
     </Border>
